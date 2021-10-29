@@ -23,9 +23,10 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     console.log(user)
     // });
 
-    db.collection('users').find({ role: 'Developer' }).toArray((error, users) => {
-        console.log(users);
-    });
+
+    // db.collection('users').find({ role: 'Developer' }).toArray((error, users) => {
+    //     console.log(users);
+    // });
 
 
     // db.collection('users').insertOne({
@@ -37,4 +38,21 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     }
     //     console.log(result)
     // })
+
+    const updatePromise = db.collection('users').updateOne({
+        _id: new ObjectId("6176542d838db4bd308c1062")
+    }, {
+        $set: {
+            role: 'Android Developer'
+        },
+        $inc: {
+            age: 1
+        }
+    });
+
+    updatePromise.then((result) => {
+        console.log(result)
+    }).catch((error) => {
+        console.log(error);
+    })
 })
